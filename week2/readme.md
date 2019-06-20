@@ -6,8 +6,7 @@ Learnt:
     for loop - for count in range('a number'):
                     list_name.append('what needs to be returned 'a number' of times')
                 return list_name
-    imbed loop in loop - dont use return in the middle: as soon as it hits a return the function stops
-
+    imbed loop in loop - dont use return in the middle: as soon as it hits a return the function stop
 
     
 
