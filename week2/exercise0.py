@@ -14,7 +14,7 @@ In each function, where you see:
 
 replace None with the actual answer.
 
-"""
+
 
 
 def add_1(a_number):
@@ -94,9 +94,6 @@ def shout_with_a_number(a_string, a_number):
     the_answer = shout(a_string) + " " + str(a_number)
 
     return the_answer
-
-
-"""################################shout(a_string)
 
 
 def minitest(f, args, expected):
