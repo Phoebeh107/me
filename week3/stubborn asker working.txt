@@ -1,0 +1,23 @@
+stubborn asker working
+    count = 0
+        while count < 1:
+            my_input=int(input("Give me a number"))
+            while my_input > low and my_input < high and count == 0:
+                print('OK')
+                count += 1
+            if count == 1:
+                print('your input was' + str(my_input))
+            else:
+                print("try again")
+        return "You got it!"
+
+
+
+count = 0
+    while count < 1:
+        my_input=int(input("Give me a number"))
+        if my_input > low and my_input < high and count == 0:
+            count += 1
+        else:
+            print("try again")
+    return "You got it!"

@@ -51,11 +51,20 @@ def stubborn_asker(low, high):
 
     Look up the docs for input
     """
-    my_input=input("Give me a number")
-    while int(my_input) > low and int(my_input) < high:
-        print('OK')
-        #print("try again")
-    return my_input
+
+    found = False
+    while found == False:
+        my_input=int(input("Give me a number "))
+        if my_input > low and my_input < high:
+            #print('OK')
+            found = True
+            #print('your input was' + str(my_input))
+        else:
+            print("try again")
+    return int(my_input)
+    
+
+
 
 
 def not_number_rejector(message):
