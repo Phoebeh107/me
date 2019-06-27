@@ -74,7 +74,21 @@ def not_number_rejector(message):
     (e.g. "cow", "six", "8!") then throw it out and ask for an actual number.
     When you do get a number, return it.
     """
-    return None
+    number=[]
+    found = False
+    while found == False:
+        my_input=input("Give me a number ")
+        if not isinstance(my_input, str) and not isinstance(my_input, int):
+            print('try again')
+        else:
+            try:
+                number=int(my_input)
+                found = True        
+            except ValueError:
+                print('try again')
+    return int(number)
+
+   
 
 
 def super_asker(low, high):
@@ -85,7 +99,25 @@ def super_asker(low, high):
     Try to call at least one of the other functions to minimise the
     amount of code.
     """
-    return None
+    
+    number=[]
+    found = False
+    while found == False:
+        my_input=input("Give me a number ")
+        if not isinstance(my_input, str) and not isinstance(my_input, int):
+            print('try again')
+        else:
+            try:
+                number=int(my_input)
+                if number > low and number < high:
+                    found = True
+                else:
+                    found = False
+                    print("try again")      
+            except ValueError:
+                print('try again')                
+    return int(number)
+    
 
 
 if __name__ == "__main__":
