@@ -31,7 +31,6 @@ def advancedGuessingGame():
     lowerBound = input("Enter a lower bound: ")
     print("OK then, a number between {} and {} ?".format(lowerBound,upperBound))
     upperBound = int(upperBound)
-    
     lowerBound = int(lowerBound)
 
     actualNumber = random.randint(lowerBound, upperBound)
@@ -51,6 +50,7 @@ def advancedGuessingGame():
                     number=int(my_input)
                     if number > lowerBound and number < upperBound:
                         found = True
+                        break
                     else:
                         found = False
                         print("Thats not even in the bounds!")      

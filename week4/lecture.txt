@@ -1,4 +1,3 @@
-TODO: Reflect on what you learned this week and what is still unclear.
 OPEN DATA SET PROJECT
 to do:
     3. outliers
@@ -14,12 +13,3 @@ to do:
         2. and then find the dataset that will help you answer interesting
         3. tell us what you found and how you got there
     
-TUTORIAL:
-    my_list = [54,32,1]
-    another_list = ["my_string","!","2"]
-    another_list[1]
-
-    #dictionary
-    my_dict = {"key":"value"}
-
-    my_dict["key"] 

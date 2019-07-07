@@ -33,10 +33,22 @@ def get_some_details():
          dictionary, you'll need integer indeces for lists, and named keys for
          dictionaries.
     """
+    #open and read json file
     json_data = open(LOCAL + "/lazyduck.json").read()
 
+    # convert from json string to a dictionary 
     data = json.loads(json_data)
-    return {"lastName": None, "password": None, "postcodePlusID": None}
+
+    #get last name and password
+    last_name = data["results"][0]["name"]["last"]
+    password = data["results"][0]["login"]["password"]
+    
+    #get postcode and ID convert to an integer and sum
+    postcode = data["results"][0]["location"]["postcode"]
+    ID = data["results"][0]["id"]["value"]
+    postcode_plus_ID = int(postcode) + int(ID)
+
+    return {"lastName": last_name, "password": password, "postcodePlusID": postcode_plus_ID}
 
 
 def wordy_pyramid():
@@ -74,32 +86,59 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. &minLength=
     """
+    # api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5 [enter api key] 
+    # & minLength=[enter min len(word) wanted] 
+    # & maxLength=[enter max len(word) wanted] 
+    # & limit=[enter no. words wanted]
+
     pass
 
+#default to (1,5) if you call the fuction and want to compare others then: pokedex(100,151) would look at pokemon with ID's 100-151
+def pokedex(low=1, high=5):    
+    """ Return the name, height and weight of the tallest pokemon in the range low to high.
 
-def wunderground():
-    """Find the weather station for Sydney.
-
-    Get some json from a request parse it and extract values.
-    Sign up to https://www.wunderground.com/weather/api/ and get an API key
+    Low and high are the range of pokemon ids to search between.
+    Using the Pokemon API: https://pokeapi.co get some JSON using the request library
+    (a working example is filled in below).
+    Parse the json and extract the values needed.
+    
     TIP: reading json can someimes be a bit confusing. Use a tool like
          http://www.jsoneditoronline.org/ to help you see what's going on.
     TIP: these long json accessors base["thing"]["otherThing"] and so on, can
-         get very long. If you are accessing a thing often, assign it to a
+         get very long. If you are accessing a thing often, as,sign it to a
          variable and then future access will be easier.
     """
-    base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
-    country = "AU"
-    city = "Sydney"
-    template = "{base}/{key}/conditions/q/{country}/{city}.json"
-    url = template.format(base=base, key=api_key, country=country, city=city)
-    r = requests.get(url)
-    if r.status_code is 200:
-        the_json = json.loads(r.text)
-        obs = the_json["current_observation"]
+    #could just have 'url string' + "id" instead of {}
+    template = "https://pokeapi.co/api/v2/pokemon/{id}" 
+    
+    height_tallest=0
+    ID_tallest=0
 
-    return {"state": None, "latitude": None, "longitude": None, "local_tz_offset": None}
+    for pokemon_id in range (low, high):
+        url = template.format(id=pokemon_id)            #the code in the loop changing the ID
+        r = requests.get(url)
+
+        # status code 200 means everything is all good keep going --> makes sure its going to be a real url
+        if r.status_code is 200:
+
+            #this gets us everthing we want to access --> can then index values and data from inside after this
+            the_json = json.loads(r.text)
+            height_current=the_json["height"]
+
+            # keep the height and the ID of the tallest pokemon to return later..
+            if height_current > height_tallest:
+                height_tallest = height_current
+                ID_tallest = pokemon_id
+            else:
+                pass
+
+    url = template.format(id=ID_tallest)            #the code in the loop changing the ID
+    r = requests.get(url)
+    the_json = json.loads(r.text)
+    name_tallest = the_json["name"]
+    weight_tallest = the_json["weight"]
+    height_tallest = the_json["height"]
+    return {"name": name_tallest, "weight": weight_tallest, "height": height_tallest}
 
 
 def diarist():
@@ -114,8 +153,16 @@ def diarist():
          might be why. Try in rather than == and that might help.
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
+    TIP: this might come in handy if you need to hack a 3d print file in the future.
     """
-    pass
+    gcode_data = open(LOCAL + "/Trispokedovetiles(laser).gcode").read()
+    M10_count = gcode_data.count("M10 P1")
+    print(M10_count)
+
+    lasers_count = open("week4/lasers.pew", "w")
+    lasers_count.write(str(M10_count))
+    lasers_count.close()
+
 
 
 if __name__ == "__main__":
