@@ -40,8 +40,62 @@ def advancedGuessingGame():
         guessedNumber = int(input("Guess a number: "))
         print("You guessed {},".format(guessedNumber),)
         super_asker(lowerBound, upperBound, guessedNumber)
-        bool(found) == True
-        '''
+        #bool(found) == True     #use the result from called function
+
+
+        if found != False:
+            if  guessedNumber == actualNumber:
+                print("You got it!! It was {}".format(actualNumber))
+                guessed = True
+            elif guessedNumber < actualNumber:
+                print("Too small, try again :'(")
+            else:
+                print("Too big, try again :'(")
+    return "You got it!"
+    # the tests are looking for the exact string "You got it!". Don't modify that!
+
+
+def super_asker(low, high, my_input):
+    
+    number=[]    
+    if not isinstance(my_input, str) and not isinstance(my_input, int):
+        print('Thats not a number!')
+        return found = False
+    else:
+        try:
+            number=int(my_input)
+            if number > low and number < high:
+                return number
+            else:
+                print("Thats not even in the bounds")
+                return found = False      
+        except ValueError:
+            print('Thats not a number!')
+            return found = False               
+
+if __name__ == "__main__":
+    print(advancedGuessingGame())
+
+
+
+
+
+def stubborn_asker(low, high, my_input):
+
+    found = False
+    while found == False:
+        if my_input > low and my_input < high:
+            #print('OK')
+            found = True
+            #print('your input was' + str(my_input))
+        else:
+            print("Thats not even in the bounds!")
+            break
+
+
+
+
+'''
         number=[]
         found = False
         while found == False:
@@ -60,52 +114,4 @@ def advancedGuessingGame():
                 except ValueError:
                     print('try again')
                     found = False 
-                    '''               
-        if found==True:
-            if  guessedNumber == actualNumber:
-                print("You got it!! It was {}".format(actualNumber))
-                guessed = True
-            elif guessedNumber < actualNumber:
-                print("Too small, try again :'(")
-            else:
-                print("Too big, try again :'(")
-    return "You got it!"
-    # the tests are looking for the exact string "You got it!". Don't modify that!
-
-
-
-def stubborn_asker(low, high, my_input):
-
-    found = False
-    while found == False:
-        if my_input > low and my_input < high:
-            #print('OK')
-            found = True
-            #print('your input was' + str(my_input))
-        else:
-            print("Thats not even in the bounds!")
-            break
-
-def super_asker(low, high, my_input):
-    
-    number=[]
-    found = False
-    while found == False:
-        if not isinstance(my_input, str) and not isinstance(my_input, int):
-            print('Thats not a number!')
-        else:
-            try:
-                number=int(my_input)
-                if number > low and number < high:
-                    found = True
-                else:
-                    found = False
-                    print("Thats not even in the bounds")
-                    break      
-            except ValueError:
-                print('Thats not a number!')
-                break                
-    return found
-
-if __name__ == "__main__":
-    print(advancedGuessingGame())
+                    '''           

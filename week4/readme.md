@@ -23,3 +23,24 @@ TUTORIAL:
     my_dict = {"key":"value"}
 
     my_dict["key"] 
+
+
+File handling
+# can always just google how to handle each type of file
+# to read either: .read or .readlines
+
+
+Pokedex Function notes:
+# status code 200 means everything is all good keep going --> makes sure its going to be a real url
+    if r.status_code is 200:
+
+# the_json = json.loads(r.text) #this gets us everthing we want to access --> can then index values and data from inside after this
+    the_json = r.json()
+    height_current=the_json["height"]
+    
+# keep the height and the ID of the tallest pokemon to return later..
+    if height_current > height_tallest:
+        height_tallest = height_current
+        ID_tallest = pokemon_id
+    else:
+        pass

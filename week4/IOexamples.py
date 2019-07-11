@@ -18,11 +18,11 @@ import json
 
 
 def be_cool(name):
-    """Just print, not actually doing any IO."""
+    """Just print, not actually doing any IO."""       #doc.string --> if written else where hovering over will tell you what the fuction does ie. documents the funciton
     print(name + " is cool")
 
 
-be_cool("Ben")
+be_cool("Ben")      #argument is being passed here
 
 
 def be_cool_for_ever(name, file_path):
@@ -32,9 +32,16 @@ def be_cool_for_ever(name, file_path):
     history_book.write(name + " is cool")
     history_book.close()
 
+def not_cool(name, file_path):
+    """Save a message about what is not cool."""
+    with open(file_path, w) as history_book
+    history_book.write(name + " drugs are not cool")
+
+
 # look up what '..' means
-be_cool_for_ever("Ben", "../ben_is_cool.txt")
-be_cool_for_ever("Ben", "ben_is_cool.lol_UR_joking")
+be_cool_for_ever("Ben", "../1161/ben_is_cool.txt")
+be_cool_for_ever("Ben", "/me/ben_is_cool.lol_UR_joking")
+not_cool("Drugs and Dogs", "../1161/test_not_cool.txt")
 
 # See where each file was saved
 

@@ -36,7 +36,7 @@ def get_some_details():
     #open and read json file
     json_data = open(LOCAL + "/lazyduck.json").read()
 
-    # convert from json string to a dictionary 
+    # convert from json string to a dictionary --> parsing
     data = json.loads(json_data)
 
     #get last name and password
@@ -111,34 +111,22 @@ def pokedex(low=1, high=5):
     #could just have 'url string' + "id" instead of {}
     template = "https://pokeapi.co/api/v2/pokemon/{id}" 
     
-    height_tallest=0
-    ID_tallest=0
-
+    height_tallest = -1
+    tallest_poke = None
     for pokemon_id in range (low, high):
         url = template.format(id=pokemon_id)            #the code in the loop changing the ID
         r = requests.get(url)
-
-        # status code 200 means everything is all good keep going --> makes sure its going to be a real url
         if r.status_code is 200:
-
-            #this gets us everthing we want to access --> can then index values and data from inside after this
-            the_json = json.loads(r.text)
-            height_current=the_json["height"]
-
-            # keep the height and the ID of the tallest pokemon to return later..
+            a_poke = r.json()
+            height_current=a_poke["height"]
             if height_current > height_tallest:
                 height_tallest = height_current
-                ID_tallest = pokemon_id
-            else:
-                pass
-
-    url = template.format(id=ID_tallest)            #the code in the loop changing the ID
-    r = requests.get(url)
-    the_json = json.loads(r.text)
-    name_tallest = the_json["name"]
-    weight_tallest = the_json["weight"]
-    height_tallest = the_json["height"]
-    return {"name": name_tallest, "weight": weight_tallest, "height": height_tallest}
+                tallest_poke = a_poke
+    return {
+        "name": tallest_poke["name"], 
+        "weight": tallest_poke["weight"], 
+        "height": tallest_poke["height"]
+    }
 
 
 def diarist():
