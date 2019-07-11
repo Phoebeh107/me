@@ -91,6 +91,7 @@ def abba(source="abba", guard=3):
     aobaobbbabbaoaaobbbaoaaobaobaobbba
                 and so on...
     """
+
     def apply_rules(letter, guard):
         """Control the substitution.
 
@@ -98,22 +99,27 @@ def abba(source="abba", guard=3):
 
         Hint: when guard == -1 return the letter.
         """
-        if letter == "a":
-            return "bba"
-        elif letter == "b":
-            return "aob"
-        elif letter == "o":
-            return "o"
-        else:
+        if guard == -1:
             return letter
-
+        else:
+            guard -= 1
+            if letter == "a":
+                return "bba"
+            elif letter == "b":
+                return "aob"
+            elif letter == "o":
+                return "oa"
+            else:
+                return letter    
     # write the rest of the function here
-    pass
-
+    result = list(map(apply_rules, letter)) #letter is not defined?? how/why
+    final_letters = ''.join(result)
+    return final_letters
+    
 
 def koch(t, order, size):
     """Make turtle t draw a Koch fractal of 'order' and 'size'."""
-    trace = ""
+    trace = "_/\_"
     if order == 0:          # The base case is just a straight line
         t.forward(size)
     else:
@@ -134,7 +140,7 @@ def draw_koch(drawing_method, steps_deep=4):
     https://docs.python.org/3/library/turtle.html
     """
     raphael = turtle.Turtle()
-    raphael.speed(1000)
+    raphael.speed(4)
     raphael.penup()
     raphael.goto(-300, 0)
     raphael.pendown()
