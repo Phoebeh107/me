@@ -60,7 +60,8 @@ def super_asker(low, high, my_input):
     number=[]    
     if not isinstance(my_input, str) and not isinstance(my_input, int):
         print('Thats not a number!')
-        return found = False
+        found = False
+        return 
     else:
         try:
             number=int(my_input)
@@ -68,10 +69,12 @@ def super_asker(low, high, my_input):
                 return number
             else:
                 print("Thats not even in the bounds")
-                return found = False      
+                found = False
+                return False      
         except ValueError:
             print('Thats not a number!')
-            return found = False               
+            found = False
+            return              
 
 if __name__ == "__main__":
     print(advancedGuessingGame())
