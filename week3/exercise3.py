@@ -29,25 +29,24 @@ def advancedGuessingGame():
     print("A number between _ and _ ?")
     lowerBound = input("Enter a lower bound: ")
     upperBound = input("Enter an upper bound: ")
+    
     print("OK then, a number between {} and {} ?".format(lowerBound,upperBound))
     lowerBound = int(lowerBound)
     upperBound = int(upperBound)
-
+    
     actualNumber = random.randint(lowerBound, upperBound)
     guessed = False
-
+    found = None
     while not guessed:
-        guessedNumber = int(input("Guess a number: "))
+        guessedNumber = input("Guess a number: ")
         print("You guessed {},".format(guessedNumber),)
-        super_asker(lowerBound, upperBound, guessedNumber)
-        #bool(found) == True     #use the result from called function
-
-
-        if found != False:
-            if  guessedNumber == actualNumber:
+        number, found = super_asker(lowerBound, upperBound, guessedNumber)
+        if found == True: 
+            guessedNumber = number
+            if  int(guessedNumber) == actualNumber:
                 print("You got it!! It was {}".format(actualNumber))
                 guessed = True
-            elif guessedNumber < actualNumber:
+            elif int(guessedNumber) < actualNumber:
                 print("Too small, try again :'(")
             else:
                 print("Too big, try again :'(")
@@ -57,46 +56,43 @@ def advancedGuessingGame():
 
 def super_asker(low, high, my_input):
     
-    number=[]    
+    number=[]   
     if not isinstance(my_input, str) and not isinstance(my_input, int):
-        print('Thats not a number!')
+        print("Thats not a number!")
         found = False
-        return 
+        return False 
     else:
         try:
             number=int(my_input)
             if number > low and number < high:
-                return number
+                print("yay!")
+                found = True
+                return number, found
             else:
                 print("Thats not even in the bounds")
                 found = False
-                return False      
+                return number, found      
         except ValueError:
-            print('Thats not a number!')
+            print("Thats not a number!")
             found = False
-            return              
+            return number, found
+           
+
+def bounds(lowerBound, upperBound):
+    found_1 = noot_num(lowerBound)
+    found_2 = noot_num(upperBound)
+    if found_1 and found_2 == False:
+        pass
+    else:
+        if int(lowerBound) < int(upperBound + 1):
+            return lowerBound, upperBound
+        
+def noot_num(my_input):
+    if not isinstance(my_input, str) and not isinstance(my_input, int):
+        found = False
 
 if __name__ == "__main__":
     print(advancedGuessingGame())
-
-
-
-
-
-def stubborn_asker(low, high, my_input):
-
-    found = False
-    while found == False:
-        if my_input > low and my_input < high:
-            #print('OK')
-            found = True
-            #print('your input was' + str(my_input))
-        else:
-            print("Thats not even in the bounds!")
-            break
-
-
-
 
 '''
         number=[]
