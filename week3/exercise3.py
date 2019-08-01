@@ -27,9 +27,13 @@ def advancedGuessingGame():
     """
     print("\nWelcome to the guessing game!")
     print("A number between _ and _ ?")
-    lowerBound = input("Enter a lower bound: ")
-    upperBound = input("Enter an upper bound: ")
-    
+    lowerBound = not_number_rejector("Enter a lower bound: ")
+    upperBound = not_number_rejector("Enter an upper bound: ")
+    while bounds(lowerBound, upperBound) == False:
+        print('new bounds needed')
+        lowerBound = not_number_rejector("Enter a lower bound: ")
+        upperBound = not_number_rejector("Enter an upper bound: ")
+    # ask for new input if not a number, or lower bound and upper bound not appropriate
     print("OK then, a number between {} and {} ?".format(lowerBound,upperBound))
     lowerBound = int(lowerBound)
     upperBound = int(upperBound)
@@ -38,11 +42,11 @@ def advancedGuessingGame():
     guessed = False
     found = None
     while not guessed:
-        guessedNumber = input("Guess a number: ")
+        guessedNumber = not_number_rejector("Guess a number: ")
         print("You guessed {},".format(guessedNumber),)
-        number, found = super_asker(lowerBound, upperBound, guessedNumber)
-        if found == True: 
-            guessedNumber = number
+        found = super_asker(lowerBound, upperBound, guessedNumber)
+        if found[1] == True: 
+            #guessedNumber = number
             if  int(guessedNumber) == actualNumber:
                 print("You got it!! It was {}".format(actualNumber))
                 guessed = True
@@ -55,7 +59,6 @@ def advancedGuessingGame():
 
 
 def super_asker(low, high, my_input):
-    
     number=[]   
     if not isinstance(my_input, str) and not isinstance(my_input, int):
         print("Thats not a number!")
@@ -65,9 +68,9 @@ def super_asker(low, high, my_input):
         try:
             number=int(my_input)
             if number > low and number < high:
-                print("yay!")
+                #print("yay!")
                 found = True
-                return number, found
+                return [number, True]
             else:
                 print("Thats not even in the bounds")
                 found = False
@@ -76,20 +79,35 @@ def super_asker(low, high, my_input):
             print("Thats not a number!")
             found = False
             return number, found
-           
 
 def bounds(lowerBound, upperBound):
-    found_1 = noot_num(lowerBound)
-    found_2 = noot_num(upperBound)
-    if found_1 and found_2 == False:
-        pass
+    if int(lowerBound) < (int(upperBound) - 1):
+        return True
     else:
-        if int(lowerBound) < int(upperBound + 1):
-            return lowerBound, upperBound
-        
-def noot_num(my_input):
-    if not isinstance(my_input, str) and not isinstance(my_input, int):
-        found = False
+        return False
+
+
+def not_number_rejector(message):
+    """Ask for a number repeatedly until actually given one.
+
+    Ask for a number, and if the response is actually NOT a number 
+    (e.g. "cow", "six", "8!") then throw it out and ask for an actual number.
+    When you do get a number, return it.
+    """
+    number=[]
+    found = False
+    while found == False:
+        my_input=input(message)
+        if not isinstance(my_input, str) and not isinstance(my_input, int):
+            print('try again')
+        else:
+            try:
+                number=int(my_input)
+                found = True        
+            except ValueError:
+                print('try again')
+    return int(number)
+
 
 if __name__ == "__main__":
     print(advancedGuessingGame())
@@ -113,4 +131,17 @@ if __name__ == "__main__":
                 except ValueError:
                     print('try again')
                     found = False 
-                    '''           
+
+
+def noot_num(my_input):
+    number=None
+    if not isinstance(my_input, str) and not isinstance(my_input, int):
+        found = False
+    else:
+        try:
+            number=int(my_input)
+            found = True        
+        except ValueError:
+            found = False
+    return found
+    '''           
