@@ -12,7 +12,7 @@ In each function, where you see:
 
     the_answer = None
 
-replace None with the actual answer.
+replace None with the actual answer."""
 
 
 
@@ -25,6 +25,7 @@ def add_1(a_number):
     This is an example function to get you started. 
     Run the tests now and this one should go green. Free marks!
     """
+
     the_answer = a_number + 1
 
     return the_answer
