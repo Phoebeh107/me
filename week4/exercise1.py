@@ -90,8 +90,29 @@ def wordy_pyramid():
     # & minLength=[enter min len(word) wanted] 
     # & maxLength=[enter max len(word) wanted] 
     # & limit=[enter no. words wanted]
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={word_len}"
+    
+    list_of_words = []
+    list_odd = []
+    list_even = []
 
-    pass
+    for i in range (3, 21):
+        url_get = url.format(word_len=i)            #changes the word lenght between 3 and 20
+        r = requests.get(url_get)
+        if r.status_code is 200:
+            random_word = str(r.content)
+            x = random_word.split("'")
+            if int(i) %2 == 0:
+                list_even.append(x[1])
+            else:
+                list_odd.append(x[1])
+        elif random_word is None: 
+            pass
+    list_even.reverse()
+    list_of_words.extend(list_odd)
+    list_of_words.extend(list_even)
+    return list_of_words
+
 
 #default to (1,5) if you call the fuction and want to compare others then: pokedex(100,151) would look at pokemon with ID's 100-151
 def pokedex(low=1, high=5):    
