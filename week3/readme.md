@@ -89,3 +89,38 @@ EXERCISES:
 #LIST.append('*')
 this puts a * in the relevant position in the list/array LIST
 
+#Extra functions that were tried for guessing game:
+'''
+        number=[]
+        found = False
+        while found == False:
+            my_input=guessedNumber
+            if not isinstance(my_input, str) and not isinstance(my_input, int):
+                print('try again')
+            else:
+                try:
+                    number=int(my_input)
+                    if number > lowerBound and number < upperBound:
+                        found = True
+                        break
+                    else:
+                        found = False
+                        print("Thats not even in the bounds!")      
+                except ValueError:
+                    print('try again')
+                    found = False 
+
+
+def noot_num(my_input):
+    number=None
+    if not isinstance(my_input, str) and not isinstance(my_input, int):
+        found = False
+    else:
+        try:
+            number=int(my_input)
+            found = True        
+        except ValueError:
+            found = False
+    return found
+    '''           
+

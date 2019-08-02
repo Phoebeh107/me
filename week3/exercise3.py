@@ -38,7 +38,7 @@ def advancedGuessingGame():
     lowerBound = int(lowerBound)
     upperBound = int(upperBound)
     
-    actualNumber = random.randint(lowerBound, upperBound)
+    actualNumber = random.randint((lowerBound + 1), (upperBound-1))
     guessed = False
     found = None
     while not guessed:
@@ -81,7 +81,11 @@ def super_asker(low, high, my_input):
             return number, found
 
 def bounds(lowerBound, upperBound):
-    if int(lowerBound) < (int(upperBound) - 1):
+    if int(lowerBound) == int(upperBound):
+        return False
+    elif (int(upperBound)-(int(lowerBound))) == 1:
+        return False
+    elif int(lowerBound) < (int(upperBound) - 1):
         return True
     else:
         return False
@@ -112,36 +116,3 @@ def not_number_rejector(message):
 if __name__ == "__main__":
     print(advancedGuessingGame())
 
-'''
-        number=[]
-        found = False
-        while found == False:
-            my_input=guessedNumber
-            if not isinstance(my_input, str) and not isinstance(my_input, int):
-                print('try again')
-            else:
-                try:
-                    number=int(my_input)
-                    if number > lowerBound and number < upperBound:
-                        found = True
-                        break
-                    else:
-                        found = False
-                        print("Thats not even in the bounds!")      
-                except ValueError:
-                    print('try again')
-                    found = False 
-
-
-def noot_num(my_input):
-    number=None
-    if not isinstance(my_input, str) and not isinstance(my_input, int):
-        found = False
-    else:
-        try:
-            number=int(my_input)
-            found = True        
-        except ValueError:
-            found = False
-    return found
-    '''           

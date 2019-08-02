@@ -112,9 +112,14 @@ def abba(source="abba", guard=3):
             else:
                 return letter    
     # write the rest of the function here
-    result = list(map(apply_rules, letter)) #letter is not defined?? how/why
-    final_letters = ''.join(result)
-    return final_letters
+    parts = list(source)
+    result = list(map(apply_rules, parts)) 
+    new_letters = ''.join(result)
+    if guard > 0:
+        return abba(new_letters, guard)
+    else:   
+        return new_letters
+        
     
 
 def koch(t, order, size):
