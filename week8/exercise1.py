@@ -100,10 +100,18 @@ def best_letter_for_pets():
     TIP: return just a letter, not the list of animals.
     """
     import string
-
+    
     the_alphabet = string.ascii_lowercase
-
-    return ""
+    count = 0
+    new_count = -1
+    for i in the_alphabet:
+        new_count = len(pet_filter(i))
+        if new_count > count:
+            count = new_count
+            best_letter = i
+        elif new_count == count:
+            best_letter.append(i)
+    return best_letter
 
 
 def make_filler_text_dictionary():
@@ -132,8 +140,23 @@ def make_filler_text_dictionary():
     """
 
     import requests
-
-    return {}
+    import requests
+    url = "https://us-central1-waldenpondpress.cloudfunctions.net/give_me_a_word?wordlength={word_len}"
+    
+    word_dic = {}
+    for i in range(3,8):
+        length = i
+        word_dic[length]=[]
+        no_words = -1
+        while int(no_words) < 2:
+            url_get = url.format(word_len=i)           
+            r = requests.get(url_get)
+            if r.status_code is 200:
+                get_word_n = str(r.content).split("'")
+                word_n = get_word_n[1]
+                no_words += 1
+            word_dic[length].append(word_n)
+    return word_dic
 
 
 def random_filler_text(number_of_words=200):
@@ -147,8 +170,14 @@ def random_filler_text(number_of_words=200):
         see line 77 of week4/hangman_leadboard.py for an example.
     """
     import random
-
-    return ""
+    count = 0
+    while number_of_words > count:
+        random_key = random.randint(3,7)
+        random_index = random.randint(0,2)
+        random_word = make_filler_text_dictionary()[random_key][random_index]
+        count += 1
+        paragraph = random_word.join
+    return paragraph
 
 
 def fast_filler(number_of_words=200):
